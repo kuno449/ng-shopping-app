@@ -5,12 +5,12 @@ import {AuthGuard} from './helper/auth.guard';
 import {HomeComponent} from './home/home.component';
 
 const routes: Routes = [
-  // { path: '', component: HomeComponent },
   { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
 
   // otherwise redirect to home
-  { path: '**', redirectTo: '' }
+  // { path: '**', redirectTo: '' }
 ];
 
 export const appRoutingModule = RouterModule.forRoot(routes);
