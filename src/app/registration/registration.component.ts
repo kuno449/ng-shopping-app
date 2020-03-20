@@ -5,6 +5,9 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../service/authentication.service';
 import {CustomerService} from '../service/customer.service';
 
+import {Customer} from '../model/customer';
+import {FirebaseService} from '../service/firebase.service';
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -19,7 +22,7 @@ export class RegistrationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private customerService: CustomerService,
+    public firebaseService: FirebaseService,
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
@@ -31,7 +34,7 @@ export class RegistrationComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -47,15 +50,16 @@ export class RegistrationComponent implements OnInit {
       return;
     }
 
+    const customer = {
+      firstName: this.registerForm.controls['firstName'].value,
+      lastName: this.registerForm.controls['lastName'].value,
+      email: this.registerForm.controls['email'].value,
+      password: this.registerForm.controls['password'].value
+    }
+
     this.loading = true;
-    this.customerService.register(this.registerForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['/login']);
-        },
-        error => {
-          this.loading = false;
-        });
+    this.firebaseService.createUser(customer).then(res => {
+      this.router.navigate(['/login']);
+    })
   }
 }

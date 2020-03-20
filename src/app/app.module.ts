@@ -9,6 +9,11 @@ import {RegistrationComponent} from './registration/registration.component';
 import { HttpClientModule } from '@angular/common/http';
 import {appRoutingModule} from './app.routing';
 import {AuthenticationService} from './service/authentication.service';
+import {FakeBackendInterceptor} from './helper/fake-backend-interceptor';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {FirebaseService} from './service/firebase.service';
 
 @NgModule({
   declarations: [
@@ -18,13 +23,16 @@ import {AuthenticationService} from './service/authentication.service';
     RegistrationComponent,
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
     appRoutingModule
   ],
   providers: [
-    AuthenticationService
+    AuthenticationService,
+    FirebaseService
   ],
   bootstrap: [AppComponent]
 })
