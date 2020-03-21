@@ -1,5 +1,5 @@
 export interface Customer {
-  customerID?: number;
+  uid: string; // auto generate
   firstName: string;
   lastName: string;
   email: string;

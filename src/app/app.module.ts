@@ -9,11 +9,11 @@ import {RegistrationComponent} from './registration/registration.component';
 import { HttpClientModule } from '@angular/common/http';
 import {appRoutingModule} from './app.routing';
 import {AuthenticationService} from './service/authentication.service';
-import {FakeBackendInterceptor} from './helper/fake-backend-interceptor';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {FirebaseService} from './service/firebase.service';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -32,6 +32,7 @@ import {FirebaseService} from './service/firebase.service';
   ],
   providers: [
     AuthenticationService,
+    AngularFireAuth,
     FirebaseService
   ],
   bootstrap: [AppComponent]

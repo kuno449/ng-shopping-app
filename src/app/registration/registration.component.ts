@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {first} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../service/authentication.service';
-import {CustomerService} from '../service/customer.service';
-
-import {Customer} from '../model/customer';
 import {FirebaseService} from '../service/firebase.service';
 
 @Component({
@@ -24,7 +20,6 @@ export class RegistrationComponent implements OnInit {
     private authenticationService: AuthenticationService,
     public firebaseService: FirebaseService,
   ) {
-    // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/']);
     }
@@ -45,7 +40,6 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
